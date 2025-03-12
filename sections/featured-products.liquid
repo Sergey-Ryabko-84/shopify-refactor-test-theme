@@ -1,0 +1,55 @@
+{% assign collection = collections[section.settings.collection] %}
+<section class="featured-products">
+  <div class="page-width featured-products__container">
+    <div class="slider-product-proposal__title-wrapper">
+      <h2 class="slider-product-proposal__title">Featured Products</h2>
+    </div>
+    {% if collection %}
+      <ul class="featured-products__list">
+        {% for product in collection.products %}
+          {%- comment -%}
+            TODO: Filter out products that are already in the cart via JavaScript.
+          {%- endcomment -%}
+          <div class="featured-products__item">
+            {%- comment -%}
+              Render product card. For now, simply output the product title.
+              When the 'product-item' snippet is ready, replace the following line with:
+              {% raw %}{% render 'product-item', product: product %}{% endraw %}
+            {%- endcomment -%}
+            <div class="featured-products__item-content">
+              <h2 class="featured-products__item-title">
+                {{ product.title | escape }}
+              </h2>
+            </div>
+            <button class="featured-products__item-submit_button" data-product-id="{{ product.id }}">
+              Add to Cart
+            </button>
+          </div>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="featured-products__empty">No products found in this collection.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products",
+      "category": "Featured"
+    }
+  ]
+}
+{% endschema %}

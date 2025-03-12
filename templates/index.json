@@ -9,6 +9,12 @@
  */
 {
   "sections": {
+    "featured_products": {
+      "type": "featured-products",
+      "settings": {
+        "collection": "all"
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -39,6 +45,7 @@
     }
   },
   "order": [
+    "featured_products",
     "featured_collection"
   ]
 }
