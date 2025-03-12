@@ -1,0 +1,15 @@
+{
+  "name": "refactor-test-theme",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"gulp watch\" \"shopify theme dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "gulp": "^5.0.0",
+    "gulp-sass": "^6.0.1",
+    "node-sass": "^9.0.0",
+    "sass": "^1.85.1"
+  }
+}
