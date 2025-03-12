@@ -68,7 +68,8 @@ if (!customElements.get('product-form')) {
           })
           .catch((e) => {
             console.error(e);
-          });
+          })
+          .finally(() => this.updateFeaturedProductsClientSide());
       }
 
       handleErrorMessage(errorMessage = false) {
@@ -82,6 +83,21 @@ if (!customElements.get('product-form')) {
         if (errorMessage) {
           this.errorMessage.textContent = errorMessage;
         }
+      }
+
+      updateFeaturedProductsClientSide() {
+        fetch('/cart.js')
+          .then((response) => response.json())
+          .then((cart) => {
+            const cartVariantIds = cart.items.map((item) => item.variant_id);
+            document.querySelectorAll('.featured-products__item').forEach((itemEl) => {
+              const variantId = itemEl.getAttribute('data-variant-id');
+              if (cartVariantIds.includes(parseInt(variantId, 10))) {
+                itemEl.remove();
+              }
+            });
+          })
+          .catch((error) => console.error('Error updating featured products:', error));
       }
     }
   );
