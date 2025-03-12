@@ -1,7 +1,10 @@
+@use 'sass:color';
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
 
 $font-primary: "Gothic A1", sans-serif;
 $text-color-primary: #656874;
+$text-color-secondary: #ffffff;
+$accent-color: #464B90;
 $max-card-width: 520px;
 $min-card-width: 375px;
 
@@ -49,7 +52,46 @@ $min-card-width: 375px;
     width: 100%;
     max-width: $max-card-width;
     flex: 1 1 $min-card-width;
-    border: 1px solid red;
+  }
+}
+
+.product-item {
+  width: 100%;
+  padding-bottom: 10px;
+  text-align: center;
+
+  &__image {
+    width: 100%;
+    aspect-ratio: 26 / 17; 
+    object-fit: cover;
+  }
+
+  &__title {
+    margin: 30px 0 11px;
+    @include text-style(22px, 700, 1.9);
+    color: $text-color-primary;
+  }
+
+  &__submit_button {
+    width: 100%;
+    max-width: 285px;
+    height: 62px;
+    @include text-style(16px, 400, 1.62);
+    color: $text-color-secondary;
+    background-color: $accent-color;
+    border-radius: 62px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+
+    &:hover {
+      background-color: color.adjust($accent-color, $lightness: -6%);
+    }
+  
+    &:active {
+      background-color: color.adjust($accent-color, $lightness: -12%);
+      transform: scale(0.98);
+    }
   }
 }
 
@@ -66,4 +108,7 @@ $min-card-width: 375px;
     }
   }
 
+  .product-item {
+    padding-bottom: 79px;
+  }
 }
