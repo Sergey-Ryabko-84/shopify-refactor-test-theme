@@ -3,6 +3,11 @@
 <script src="{{ 'add-to-cart-form.js' | asset_url }}" defer="defer"></script>
 
 {% assign collection = collections[section.settings.collection] %}
+{% assign cart_product_ids = '' %}
+{% for item in cart.items %}
+  {% assign cart_product_ids = cart_product_ids | append: item.variant_id | append: ',' %}
+{% endfor %}
+
 <section class="featured-products">
   <div class="page-width featured-products__container">
     <div class="featured-products__title-wrapper">
@@ -11,12 +16,11 @@
     {% if collection %}
       <ul class="featured-products__list">
         {% for product in collection.products %}
-          {%- comment -%}
-            TODO: Filter out products that are already in the cart via JavaScript.
-          {%- endcomment -%}
-          <li class="featured-products__item">
-            {% render 'product-item-form', product: product, section: section %}
-          </li>
+          {% unless cart_product_ids contains product.variants.first.id %}
+            <li class="featured-products__item">
+              {% render 'product-item-form', product: product, section: section %}
+            </li>
+          {% endunless %}
         {% endfor %}
       </ul>
     {% else %}
