@@ -1,5 +1,6 @@
 {{ 'section-featured-products.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'product-item.js' | asset_url }}"></script>
+<script src="{{ 'add-to-cart-form.js' | asset_url }}" defer="defer"></script>
 
 {% assign collection = collections[section.settings.collection] %}
 <section class="featured-products">
@@ -14,11 +15,7 @@
             TODO: Filter out products that are already in the cart via JavaScript.
           {%- endcomment -%}
           <li class="featured-products__item">
-            <product-item 
-              title="{{ product.title | escape }}" 
-              image="{{ product.featured_image | img_url: '520x340' }}" 
-              price="{{ product.price | money }}">
-            </product-item>
+            {% render 'product-item-form', product: product, section: section %}
           </li>
         {% endfor %}
       </ul>
