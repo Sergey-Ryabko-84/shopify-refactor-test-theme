@@ -12,7 +12,7 @@
     "featured_products": {
       "type": "featured-products",
       "settings": {
-        "collection": "all"
+        "collection": "eye-creams"
       }
     },
     "featured_collection": {

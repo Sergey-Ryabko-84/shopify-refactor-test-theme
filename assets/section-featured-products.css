@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap");
+.featured-products {
+  padding: 43px 0;
+}
+.featured-products * {
+  font-family: "Gothic A1", sans-serif;
+}
+.featured-products h2 {
+  margin: 0;
+}
+.featured-products ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.featured-products__title-wrapper {
+  margin-bottom: 30px;
+}
+.featured-products__title {
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.38;
+  text-align: center;
+  color: #656874;
+}
+.featured-products__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+.featured-products__item {
+  width: 100%;
+  max-width: 520px;
+  flex: 1 1 375px;
+  border: 1px solid red;
+}
+
+@media screen and (min-width: 750px) {
+  .featured-products {
+    padding: 80px 0;
+  }
+  .featured-products__title-wrapper {
+    margin-bottom: 60px;
+  }
+  .featured-products__title {
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1;
+  }
+}
