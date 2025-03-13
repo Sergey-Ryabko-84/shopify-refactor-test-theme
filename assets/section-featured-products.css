@@ -13,6 +13,11 @@
   margin: 0;
   padding: 0;
 }
+.featured-products__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .featured-products__title-wrapper {
   margin-bottom: 30px;
 }
@@ -24,15 +29,16 @@
   color: #656874;
 }
 .featured-products__list {
-  display: flex;
-  flex-wrap: wrap;
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
   gap: 40px;
   justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
 }
 .featured-products__item {
   width: 100%;
   max-width: 520px;
-  flex: 1 1 375px;
 }
 
 .product-item {
