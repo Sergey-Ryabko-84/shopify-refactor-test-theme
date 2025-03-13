@@ -1,99 +1,100 @@
-# Dawn
+# Refactor Test Theme
 
-[![Build status](https://github.com/shopify/dawn/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Shopify/dawn/actions/workflows/ci.yml?query=branch%3Amain)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?color=informational)](/.github/CONTRIBUTING.md)
+This repository contains a refactored Shopify theme built on the standard Dawn theme. It was developed as part of a Shopify Developer test assignment. The theme includes a custom "Featured Products" section with dynamic product filtering (excluding items already in the cart) and an AJAX-based add-to-cart functionality.
 
-[Getting started](#getting-started) |
-[Staying up to date with Dawn changes](#staying-up-to-date-with-dawn-changes) |
-[Developer tools](#developer-tools) |
-[Contributing](#contributing) |
-[Code of conduct](#code-of-conduct) |
-[Theme Store submission](#theme-store-submission) |
-[License](#license)
+## Requirements
 
-Dawn represents a HTML-first, JavaScript-only-as-needed approach to theme development. It's Shopify's first source available theme with performance, flexibility, and [Online Store 2.0 features](https://www.shopify.com/partners/blog/shopify-online-store) built-in and acts as a reference for building Shopify themes.
+- **Node.js:** 18.20+ or 20.10 or higher
+- **Node.js Package Manager:** npm, Yarn 1.x, or pnpm
+- **Git:** 2.28.0 or higher
 
-* **Web-native in its purest form:** Themes run on the [evergreen web](https://www.w3.org/2001/tag/doc/evergreen-web/). We leverage the latest web browsers to their fullest, while maintaining support for the older ones through progressive enhancement—not polyfills.
-* **Lean, fast, and reliable:** Functionality and design defaults to “no” until it meets this requirement. Code ships on quality. Themes must be built with purpose. They shouldn’t support each and every feature in Shopify.
-* **Server-rendered:** HTML must be rendered by Shopify servers using Liquid. Business logic and platform primitives such as translations and money formatting don’t belong on the client. Async and on-demand rendering of parts of the page is OK, but we do it sparingly as a progressive enhancement.
-* **Functional, not pixel-perfect:** The Web doesn’t require each page to be rendered pixel-perfect by each browser engine. Using semantic markup, progressive enhancement, and clever design, we ensure that themes remain functional regardless of the browser.
+## Setup Instructions
 
-You can find a more detailed version of our theme code principles in the [contribution guide](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md#theme-code-principles).
+1. **Clone the Repository**
 
-## Getting started
-We recommend using Dawn as a starting point for theme development. [Learn more on Shopify.dev](https://shopify.dev/themes/getting-started/create).
+   ```bash
+   git clone https://github.com/yourusername/refactor-test-theme.git
+   cd refactor-test-theme
+   ```
 
-> If you're building a theme for the Shopify Theme Store, then you can use Dawn as a starting point. However, the theme that you submit needs to be [substantively different from Dawn](https://shopify.dev/themes/store/requirements#uniqueness) so that it provides added value for merchants. Learn about the [ways that you can use Dawn](https://shopify.dev/themes/tools/dawn#ways-to-use-dawn).
+2. **Install Dependencies**
 
-Please note that the main branch may include code for features not yet released. The "stable" version of Dawn is available in the theme store.
+   Using Yarn, install all required packages:
 
-## Staying up to date with Dawn changes
+   ```bash
+   yarn install
+   ```
 
-Say you're building a new theme off Dawn but you still want to be able to pull in the latest changes, you can add a remote `upstream` pointing to this Dawn repository.
+3. **Start the Development Environment**
 
-1. Navigate to your local theme folder.
-2. Verify the list of remotes and validate that you have both an `origin` and `upstream`:
-```sh
-git remote -v
-```
-3. If you don't see an `upstream`, you can add one that points to Shopify's Dawn repository:
-```sh
-git remote add upstream https://github.com/Shopify/dawn.git
-```
-4. Pull in the latest Dawn changes into your repository:
-```sh
-git fetch upstream
-git pull upstream main
-```
+   The project uses Gulp to compile SCSS files and Shopify CLI to run the theme in development mode. To start both concurrently, run:
 
-## Developer tools
+   ```bash
+   yarn start
+   ```
 
-There are a number of really useful tools that the Shopify Themes team uses during development. Dawn is already set up to work with these tools.
+   This command runs two processes simultaneously:
 
-### Shopify CLI
+   - gulp watch: Watches SCSS files in the styles folder and compiles them to CSS in the assets folder.
+   - shopify theme dev: Starts the Shopify CLI development server for live preview and hot-reloading.
 
-[Shopify CLI](https://github.com/Shopify/shopify-cli) helps you build Shopify themes faster and is used to automate and enhance your local development workflow. It comes bundled with a suite of commands for developing Shopify themes—everything from working with themes on a Shopify store (e.g. creating, publishing, deleting themes) or launching a development server for local theme development.
+## Project Structure
 
-You can follow this [quick start guide for theme developers](https://shopify.dev/docs/themes/tools/cli) to get started.
+  - assets/
+    - product-item.js - Contains the custom HTML element that renders a product card.
+    - add-to-cart-form.js - Contains the logic for adding products to the cart via AJAX and updating the cart.
+  - sections/
+    - featured-products.liquid - Renders the "Featured Products" section, displaying products from a selected collection while excluding those already in the cart.
+  - snippets/
+    - product-item-form.liquid - Contains the markup for a product item integrated with the add-to-cart form.
+  - styles/
+    - SCSS files for custom styling (located in the styles folder).
 
-### Theme Check
+  Other folders follow the standard Shopify theme structure.
 
-We recommend using [Theme Check](https://github.com/shopify/theme-check) as a way to validate and lint your Shopify themes.
+## Gulp Tasks
 
-We've added Theme Check to Dawn's [list of VS Code extensions](/.vscode/extensions.json) so if you're using Visual Studio Code as your code editor of choice, you'll be prompted to install the [Theme Check VS Code](https://marketplace.visualstudio.com/items?itemName=Shopify.theme-check-vscode) extension upon opening VS Code after you've forked and cloned Dawn.
+  - gulp sass: Compiles SCSS files from the styles folder into CSS files in the assets folder.
+  - gulp watch: Watches SCSS files for changes and automatically recompiles them.
 
-You can also run it from a terminal with the following Shopify CLI command:
+## Custom Features
 
-```bash
-shopify theme check
-```
+  - Featured Products Section:
+    Displays a list of products from a selected collection, excluding those already in the cart.
 
-### Continuous Integration
+  - Dynamic Product Filtering:
+    Uses JavaScript and the Shopify Section Rendering API to update the list of featured products in real-time after adding a product to the cart.
 
-Dawn uses [GitHub Actions](https://github.com/features/actions) to maintain the quality of the theme. [This is a starting point](https://github.com/Shopify/dawn/blob/main/.github/workflows/ci.yml) and what we suggest to use in order to ensure you're building better themes. Feel free to build off of it!
+  - Custom Add-to-Cart Form:
+    Integrates a custom product-item component within a product-form that handles AJAX-based add-to-cart functionality.
 
-#### Shopify/lighthouse-ci-action
+  **Files Implementing "Featured Products" Functionality**
+  - sections/featured-products.liquid
+  - snippets/product-item-form.liquid
+  - assets/product-item.js
+  - assets/add-to-cart-form.js
 
-We love fast websites! Which is why we created [Shopify/lighthouse-ci-action](https://github.com/Shopify/lighthouse-ci-action). This runs a series of [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) audits for the home, product and collections pages on a store to ensure code that gets added doesn't degrade storefront performance over time.
+## Deployment
 
-#### Shopify/theme-check-action
+  To deploy your theme to a Shopify store:
 
-Dawn runs [Theme Check](#Theme-Check) on every commit via [Shopify/theme-check-action](https://github.com/Shopify/theme-check-action).
+  1. Ensure you are logged in to your Shopify store using Shopify CLI.
+
+  2. Push the theme changes with:
+
+    ```bash
+    shopify theme push
+    ```
+
+  3. Follow the prompts to publish the theme if needed.
 
 ## Contributing
 
-Want to make commerce better for everyone by contributing to Dawn? We'd love your help! Please read our [contributing guide](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md) to learn about our development process, how to propose bug fixes and improvements, and how to build for Dawn.
+  Please ensure that each commit message clearly describes the changes made. For example:
 
-## Code of conduct
-
-All developers who wish to contribute through code or issues, please first read our [Code of Conduct](https://github.com/Shopify/dawn/blob/main/.github/CODE_OF_CONDUCT.md).
-
-## Theme Store submission
-
-The [Shopify Theme Store](https://themes.shopify.com/) is the place where Shopify merchants find the themes that they'll use to showcase and support their business. As a theme partner, you can create themes for the Shopify Theme Store and reach an international audience of an ever-growing number of entrepreneurs.
-
-Ensure that you follow the list of [theme store requirements](https://shopify.dev/themes/store/requirements) if you're interested in becoming a [Shopify Theme Partner](https://themes.shopify.com/services/themes/guidelines) and building themes for the Shopify platform.
+  - "Update product list styles for better alignment and responsiveness"
+  - "Fix dynamic filtering of featured products after adding to cart"
 
 ## License
 
-Copyright (c) 2021-present Shopify Inc. See [LICENSE](/LICENSE.md) for further details.
+  This project is provided for educational purposes as part of the Shopify Developer test assignment.
