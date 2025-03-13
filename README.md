@@ -7,6 +7,8 @@ This repository contains a refactored Shopify theme built on the standard Dawn t
 - **Node.js:** 18.20+ or 20.10 or higher
 - **Node.js Package Manager:** npm, Yarn 1.x, or pnpm
 - **Git:** 2.28.0 or higher
+- **Shopify CLI** (v3.50.0 or later)
+- **A Shopify Partners account** for testing and deploying your theme
 
 ## Setup Instructions
 
@@ -82,9 +84,8 @@ This repository contains a refactored Shopify theme built on the standard Dawn t
 
   2. Push the theme changes with:
 
-    ```bash
     shopify theme push
-    ```
+    
 
   3. Follow the prompts to publish the theme if needed.
 
